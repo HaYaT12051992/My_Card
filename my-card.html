@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Elegant Card - Hayat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #000;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border: 3px solid #8A0303; /* إطار البطاقة أحمر دم الغزال */
+      width: 340px;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 25px #8A0303;
+      position: relative;
+      z-index: 1;
+      transition: box-shadow 0.4s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 45px #b00404;
+    }
+
+    .card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #8A0303; /* إطار الصورة أحمر دم الغزال */
+      object-fit: cover;
+      margin-bottom: 15px;
+      transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
+    }
+
+    /* توهج ذهبي حول الصورة عند المرور */
+    .card img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 25px #FFD700;
+      border-color: #FFD700;
+    }
+
+    /* الاسم الذهبي اللامع مع وميض */
+    .card h1 {
+      margin: 10px 0;
+      font-size: 22px;
+      background: linear-gradient(90deg, #FFD700, #FFB700, #FFF6A0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px #FFD700;
+      font-weight: 700;
+      animation: glow 2.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      0% {
+        text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700;
+      }
+      50% {
+        text-shadow: 0 0 15px #FFD700, 0 0 25px #FFD700, 0 0 35px #FFD700;
+      }
+      100% {
+        text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700;
+      }
+    }
+
+    .card p {
+      color: #f0f0f0;
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    /* زر About Me */
+    .about-me {
+      background-color: #8A0303; /* أحمر دم الغزال */
+      color: #fff;
+      margin: 15px 0;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+      display: inline-block;
+      box-shadow: 0 0 10px #8A0303;
+    }
+
+    .about-me:hover {
+      background-color: #a00404;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #a00404;
+    }
+
+    .card a {
+      display: inline-block;
+      margin: 10px 5px;
+      padding: 10px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s ease-in-out;
+      color: #fff;
+    }
+
+    /* زر CV ذهبي لامع */
+    .btn-cv {
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FFEF96);
+      color: #000;
+      box-shadow: 0 0 10px #FFD700;
+    }
+
+    .btn-cv:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px #FFD700;
+    }
+
+    .btn-linkedin {
+      background-color: #0077b5;
+    }
+
+    .btn-linkedin:hover {
+      background-color: #005b8f;
+      transform: scale(1.05);
+    }
+
+    .btn-whatsapp {
+      background-color: #25D366;
+    }
+
+    .btn-whatsapp:hover {
+      background-color: #1ebe5d;
+      transform: scale(1.05);
+    }
+
+    /* النافذة المنبثقة */
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .popup {
+      background: #1a1a1a;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 20px #8A0303;
+      border: 2px solid #8A0303;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .popup h2 {
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .popup p {
+      color: #ddd;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .close-btn {
+      background-color: #8A0303;
+      color: #fff;
+      border: none;
+      margin-top: 15px;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-btn:hover {
+      background-color: #a00404;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="My_Profile.jpg" alt="Profile Photo" />
+    <h1>Hayat Boutoumit</h1>
+    <p>Chemistry & Environment Specialist</p>
+    <p>📧 boutoumit.hayat@gmail.com</p>
+
+    <!-- زر about me -->
+    <div class="about-me" id="aboutBtn">About Me</div>
+
+    <a href="Hayat_CV.pdf" download class="btn-cv">📄 Download CV</a>
+    <a href="https://www.linkedin.com/in/hayat-boutoumit-0565b7350" target="_blank" class="btn-linkedin">LinkedIn</a>
+    <a href="https://wa.me/212657493112" target="_blank" class="btn-whatsapp">WhatsApp</a>
+  </div>
+
+  <!-- النافذة المنبثقة -->
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup">
+      <h2>About Me</h2>
+      <p>
+        Passionate about environmental chemistry, dedicated to sustainable solutions and green innovations to protect our planet.
+        Always eager to learn, collaborate, and contribute to creating a cleaner and healthier environment for all.
+      </p>
+      <button class="close-btn" id="closePopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const aboutBtn = document.getElementById('aboutBtn');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const closePopup = document.getElementById('closePopup');
+
+    aboutBtn.addEventListener('click', () => {
+      popupOverlay.style.display = 'flex';
+    });
+
+    closePopup.addEventListener('click', () => {
+      popupOverlay.style.display = 'none';
+    });
+
+    popupOverlay.addEventListener('click', (e) => {
+      if (e.target === popupOverlay) {
+        popupOverlay.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
+
